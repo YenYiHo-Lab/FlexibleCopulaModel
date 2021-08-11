@@ -230,7 +230,7 @@ rho.update = function(z,rho,B=200,h=200){
 }
 
 #############################################################################
-##### MCMC
+##### MCMC output
 
 mcmc.fun = function(y,x,x.p,n.mcmc=20000,burn=5000,thin=50){
     beta = theta = tau = matrix(0,nrow=n.mcmc,ncol=ncol(x))
@@ -280,15 +280,3 @@ mcmc.fun = function(y,x,x.p,n.mcmc=20000,burn=5000,thin=50){
 	"lambda","phi")
 
 return(mcmc.out)}
-
-#####
-
-dens.y = function(y1,y2,alpha,lambda,p,mu,phi,rho){
-	z1 = qnorm(pgamma(y1,alpha*lambda,lambda))
-	z2 = qnorm(pbeta(y2,mu*phi,(1-mu)*phi))
-	inv.R = solve(matrix(c(1,rho,rho,1),2,2))
-	l.dens = -log(2*pi) - .5*log(1-rho^2) - 
-		.5*(c(z1,z2)%*%(inv.R - diag(2))%*%c(z1,z2)) + 
-		dgamma(y1,alpha*lambda,lambda,log=T) + 
-		dbeta(y2,mu*phi,(1-mu)*phi,log=T) + log(1-p)
-return(exp(l.dens))}
