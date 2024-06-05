@@ -220,7 +220,7 @@ rho.update = function(z,rho,B=200,h=200){
     x.star = rnorm(1,x.old,sd.x)
     rho.star = (exp(x.star)-1)/(exp(x.star)+1)
 
-    log.r = mvdens.z.2(z,rho.star) - mvdens.z.2(z,rho.old) + 
+    log.r = mvdens.z(z,rho.star) - mvdens.z(z,rho.old) + 
 		2*log(exp(x.star)+1) - 
 		2*log(exp(x.old)+1) + x.old - x.star
 
